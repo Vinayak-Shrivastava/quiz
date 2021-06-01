@@ -1,0 +1,246 @@
+<html>
+
+<body>
+
+<center><button id="btn1" onclick="ask_ques()"> START QUIZ </button></center>
+<button id="btn2" style="visibility:hidden;" onclick="details()"> Check Details of the Quiz </button>
+<button id="btn3" style="visibility:hidden;" onclick="reset()"> Menu </button>
+<p id="score"></p>
+<p align="right" id="time"></p>
+<p id="ques"></p>
+<p id="details" style="tab-size: 16;"></p>
+<button id="op1" onclick="sel_op[q_no-1]=op[0];check();" style="visibility:hidden;">  </button>
+<button id="op2" onclick="sel_op[q_no-1]=op[1];check();" style="visibility:hidden;">  </button>
+<button id="op3" onclick="sel_op[q_no-1]=op[2];check();" style="visibility:hidden;">  </button>
+<button id="op4" onclick="sel_op[q_no-1]=op[3];check();" style="visibility:hidden;">  </button>
+
+
+
+
+
+
+
+<script>
+
+let i=0;
+let temp="";
+a=0;
+time=30;
+time_tkn=[0,0,0,0,0,0,0,0,0,0];
+q_no=0;
+ques=["","","","","","","","","",""];
+sel_op=["","","","","","","","","",""];
+op=["","","",""];
+q =[0,0,0,0,0,0,0,0,0,0];
+corct_op=["","","","","","","","","",""];
+score = 0;
+
+function rndmize_op(op)
+{
+for(i=0;i<4;i++)
+{
+
+a=Math.floor(Math.random()*(4-i) + i);
+temp=op[i];
+op[i]=op[a];
+op[a]=temp;
+
+}
+
+temp="";
+
+
+}
+
+function details()
+{
+document.getElementById("btn2").style.visibility = "hidden";
+document.getElementById("time").innerHTML = "";
+while(q_no>0)
+{
+document.getElementById("details").innerHTML += "<b> Question " + (11-q_no) +": "+ ques[10-q_no]+"</b>"+ " selected option:"+sel_op[10-q_no]+ " correct option:"+corct_op[10-q_no]+" time taken: "+time_tkn[10-q_no]+ " seconds <br>";
+q_no--;
+}
+document.getElementById("details").innerHTML += "<br>  correct answers: " + score +" incorrect answers: " + (10-score);
+
+
+}
+function reset()
+{
+document.getElementById("btn1").style.visibility = "visible";
+document.getElementById("time").innerHTML = "";
+document.getElementById("btn2").style.visibility = "hidden";
+document.getElementById("btn3").style.visibility = "hidden";
+document.getElementById("score").style.visibility = "hidden";
+document.getElementById("details").innerHTML = "";
+a=0;
+time=30;
+time_tkn=[0,0,0,0,0,0,0,0,0,0];
+q_no=0;
+ques=["","","","","","","","","",""];
+sel_op=["","","","","","","","","",""];
+op=["","","",""];
+q =[0,0,0,0,0,0,0,0,0,0]
+corct_op=["","","","","","","","","",""];
+score = 0;
+
+
+}
+
+
+function question(a)
+{
+q_no++;
+do{
+a=Math.floor(Math.random()*10+1);
+}while(q[0]==a || q[1]==a || q[2]==a || q[3]==a || q[4]==a || q[5]==a || q[6]==a || q[7]==a || q[8]==a || q[9]==a)
+q[q_no-1]=a;
+ 
+
+
+
+
+switch(a){
+ case 1:
+    ques[q_no-1]="what is my name?";
+    op=["Vinayak","Bruh","lul","tut"];
+    rndmize_op(op);
+    corct_op[q_no-1]="Vinayak";
+    break;
+ case 2:
+    ques[q_no-1]="what is my sister name?";
+    op=["Varu","Bruh","lul","tut"];
+    rndmize_op(op);
+    corct_op[q_no-1]="Varu";
+    break;
+
+ case 3:
+    ques[q_no-1]="what is my father name?";
+    op=["satya","Bruh","lul","tut"];
+    rndmize_op(op);
+    corct_op[q_no-1]="satya";
+    break;
+
+ case 4:
+    ques[q_no-1]="what is my mother name?";
+    op=["archu","Bruh","lul","tut"];
+    rndmize_op(op);
+    corct_op[q_no-1]="archu";
+    break;
+
+ case 5:
+    ques[q_no-1]="what is my nick name?";
+    op=["Vinu","Bruh","lul","tut"];
+    rndmize_op(op);
+    corct_op[q_no-1]="Vinu";
+    break;
+
+ case 6:
+    ques[q_no-1]="what is my roll no?";
+    op=["20na30032","Bruh","lul","tut"];
+    rndmize_op(op);
+    corct_op[q_no-1]="20na30032";
+    break;
+
+ case 7:
+    ques[q_no-1]="what is my clg?";
+    op=["kgp","Bruh","lul","tut"];
+    rndmize_op(op);
+    corct_op[q_no-1]="kgp";
+    break;
+
+ case 8:
+    ques[q_no-1]="what is my age?";
+    op=["19","Bruh","lul","tut"];
+    rndmize_op(op);
+    corct_op[q_no-1]="19";
+    break;
+
+ case 9:
+    ques[q_no-1]="what is my height?"
+    op=["178","Bruh","lul","tut"];
+    rndmize_op(op);
+    corct_op[q_no-1]="178";
+    break;
+
+ case 10:
+    ques[q_no-1]="what is my fav food?";
+    op=["manchurian","Bruh","lul","tut"];
+    rndmize_op(op);
+    corct_op[q_no-1]="manchurian";
+    break;
+}	
+}
+
+function end_quiz()
+{
+alert("final score = "+ score);
+document.getElementById("op1").style.visibility = "hidden";
+document.getElementById("op2").style.visibility = "hidden";
+document.getElementById("op3").style.visibility = "hidden";
+document.getElementById("op4").style.visibility = "hidden";
+document.getElementById("btn1").style.visibility = "hidden";
+document.getElementById("ques").style.visibility = "hidden";
+document.getElementById("time").innerHMTL = "";
+document.getElementById("score").innerHTML ="final score:" + score;
+document.getElementById("btn2").style.visibility = "visible";
+document.getElementById("btn3").style.visibility = "visible";
+}
+
+function check()
+{
+clearInterval(t);
+time_tkn[q_no-1] = 30 - time;
+if(time_tkn[q_no-1] == 0){time_tkn[q_no-1] = 1;}
+if(sel_op[q_no-1] == corct_op[q_no-1]) {alert("correct");score++}
+else {alert("wrong");}
+
+if(q_no>=10)
+{
+end_quiz();
+}
+else{ask_ques();}
+}
+
+function ask_ques()
+{
+
+time=30;
+question(a);
+t=setInterval(clock,1000);
+
+function clock()
+{
+time--;
+document.getElementById("time").innerHTML=" Time Left: " + time + " sec";
+if(time == 0){clearInterval(t);alert("time up");time_tkn[q_no-1]=30;ask_ques();}
+}	
+document.getElementById("score").innerHTML = "score : "+score;
+document.getElementById("score").style.visibility = "visible";
+document.getElementById("ques").style.visibility = "visible";
+
+
+
+
+
+document.getElementById("btn1").style.visibility = "hidden";
+document.getElementById("ques").innerHTML = "Question " + q_no + ": " + ques[q_no-1];
+document.getElementById("op1").style.visibility = "visible";
+document.getElementById("op2").style.visibility = "visible";
+document.getElementById("op3").style.visibility = "visible";
+document.getElementById("op4").style.visibility = "visible";
+document.getElementById("op1").innerHTML = "1."+ op[0];
+document.getElementById("op2").innerHTML = "2."+ op[1];
+document.getElementById("op3").innerHTML = "3."+ op[2];
+document.getElementById("op4").innerHTML = "4."+ op[3];
+	
+}
+
+
+
+
+
+
+</script>
+</body>
+</html>
