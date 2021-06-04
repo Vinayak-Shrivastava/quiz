@@ -1,247 +1,269 @@
 <html>
+ <head>
+  <title>QUIZ</title>
+  <style>
+  #ques
+  {
+   font-size:x-large;
+  }
+  #btn1
+  {
+   font-size:xx-large;
+  }
+  #btn2
+  {
+   font-size:large;
+   visibility:hidden;
+  }
+  #btn3
+  {
+   font-size:large;
+   visibility:hidden;
+  }
+  #op1
+  {
+   font-size:large;
+   visibility:hidden;
+  }
+  #op2
+  {
+   font-size:large;
+   visibility:hidden;
+  }
+  #op3
+  {
+   font-size:large;
+   visibility:hidden;
+  }
+  #op4
+  {
+   font-size:large;
+   visibility:hidden;
+  }
+  #corct
+  {
+   color:green;
+  }
+  #incorct
+  { 
+   color:red;
+  }
+  </style>
+ </head>
+ <body>
 
-<body>
-
-<center><button id="btn1" onclick="ask_ques()"> START QUIZ </button></center>
-<button id="btn2" style="visibility:hidden;" onclick="details()"> Check Details of the Quiz </button>
-<button id="btn3" style="visibility:hidden;" onclick="reset()"> Menu </button>
-<p id="score"></p>
-<p align="right" id="time"></p>
-<p id="ques"></p>
-<p id="details" style="tab-size: 16;"></p>
-<button id="op1" onclick="sel_op[q_no-1]=op[0];check();" style="visibility:hidden;">  </button>
-<button id="op2" onclick="sel_op[q_no-1]=op[1];check();" style="visibility:hidden;">  </button>
-<button id="op3" onclick="sel_op[q_no-1]=op[2];check();" style="visibility:hidden;">  </button>
-<button id="op4" onclick="sel_op[q_no-1]=op[3];check();" style="visibility:hidden;">  </button>
-
-
-
-
-
-
-
-<script>
-
+  <center><button id="btn1" onclick="ask_ques()"> START QUIZ </button></center>
+  <button id="btn2" onclick="details()"> Check Details of the Quiz </button>&emsp;
+  <button id="btn3" style="visibility:hidden;" onclick="reset()"> Menu </button>
+  <div id="score"></div>
+  <div id="time"></div>
+  <center><p id="ques"></p></center>
+  <div id="details"></div>
+  <center>
+  <table>
+   <tr>
+    <td><button id="op1" onclick="sel_op[q_no-1]=op[0];check();">  </button>&emsp;</td>
+    <td><button id="op2" onclick="sel_op[q_no-1]=op[1];check();">  </button></td>
+   </tr>
+   <tr>
+    <td><button id="op3" onclick="sel_op[q_no-1]=op[2];check();">  </button>&emsp;</td>
+    <td><button id="op4" onclick="sel_op[q_no-1]=op[3];check();">  </button></td>
+   </tr>
+  </table>
+  </center>
+  <script>
 let i=0;
 let temp="";
-a=0;
-time=30;
-time_tkn=[0,0,0,0,0,0,0,0,0,0];
-q_no=0;
-ques=["","","","","","","","","",""];
-sel_op=["","","","","","","","","",""];
-op=["","","",""];
-q =[0,0,0,0,0,0,0,0,0,0];
-corct_op=["","","","","","","","","",""];
-score = 0;
+var a=0,b=0,time=30,score = 0,q_no=0;
+var time_tkn=[0,0,0,0,0,0,0,0,0,0];
+var q=[0,0,0,0,0,0,0,0,0,0];
+var ques=["","","","","","","","","",""];
+var sel_op=["","","","","","","","","",""];
+var op=["","","",""];
+var corct_op=["","","","","","","","","",""];
 
 function rndmize_op(op)
 {
-for(i=0;i<4;i++)
-{
-
-a=Math.floor(Math.random()*(4-i) + i);
-temp=op[i];
-op[i]=op[a];
-op[a]=temp;
-
-}
-
-temp="";
-
-
+ for(i=0;i<4;i++)
+ {
+  a=Math.floor(Math.random()*(4-i) + i);
+  temp=op[i];
+  op[i]=op[a];
+  op[a]=temp;
+ }
+ temp="";
 }
 
 function details()
 {
-document.getElementById("btn2").style.visibility = "hidden";
-document.getElementById("time").innerHTML = "";
-while(q_no>0)
-{
-document.getElementById("details").innerHTML += "<b> Question " + (11-q_no) +": "+ ques[10-q_no]+"</b>"+ " selected option:"+sel_op[10-q_no]+ " correct option:"+corct_op[10-q_no]+" time taken: "+time_tkn[10-q_no]+ " seconds <br>";
-q_no--;
+ document.getElementById("btn2").style.visibility = "hidden";
+ document.getElementById("time").innerHTML = "";
+ while(q_no>0)
+ {
+  document.getElementById("details").innerHTML += "<div id="+(sel_op[10-q_no]==corct_op[10-q_no]?"\"corct\">":"\"incorct\">") +"<b> Question " + (11-q_no) +": "+ ques[10-q_no]+"</b>"+ "; selected option:"+sel_op[10-q_no]+ " ;correct option:"+corct_op[10-q_no]+" time taken: "+time_tkn[10-q_no]+ " seconds</div> <br>";
+  q_no--;
+ }
+ document.getElementById("details").innerHTML += "<br>  correct answers: " + score +" incorrect answers: " + (10-score);
 }
-document.getElementById("details").innerHTML += "<br>  correct answers: " + score +" incorrect answers: " + (10-score);
 
-
-}
 function reset()
 {
-document.getElementById("btn1").style.visibility = "visible";
-document.getElementById("time").innerHTML = "";
-document.getElementById("btn2").style.visibility = "hidden";
-document.getElementById("btn3").style.visibility = "hidden";
-document.getElementById("score").style.visibility = "hidden";
-document.getElementById("details").innerHTML = "";
-a=0;
-time=30;
-time_tkn=[0,0,0,0,0,0,0,0,0,0];
-q_no=0;
-ques=["","","","","","","","","",""];
-sel_op=["","","","","","","","","",""];
-op=["","","",""];
-q =[0,0,0,0,0,0,0,0,0,0]
-corct_op=["","","","","","","","","",""];
-score = 0;
-
-
+ document.getElementById("btn1").style.visibility = "visible";
+ document.getElementById("time").innerHTML = "";
+ document.getElementById("btn2").style.visibility = "hidden";
+ document.getElementById("btn3").style.visibility = "hidden";
+ document.getElementById("score").style.visibility = "hidden";
+ document.getElementById("details").innerHTML = "";
+ a=0,b=0,time=30,q_no=0,score = 0;
+ time_tkn=[0,0,0,0,0,0,0,0,0,0];
+ q=[0,0,0,0,0,0,0,0,0,0];
+ ques=["","","","","","","","","",""];
+ sel_op=["","","","","","","","","",""];
+ op=["","","",""];
+ corct_op=["","","","","","","","","",""];
 }
 
-
-function question(a)
+function rndmize_ques()
 {
-q_no++;
-do{
-a=Math.floor(Math.random()*10+1);
-}while(q[0]==a || q[1]==a || q[2]==a || q[3]==a || q[4]==a || q[5]==a || q[6]==a || q[7]==a || q[8]==a || q[9]==a)
-q[q_no-1]=a;
- 
+ do
+ {
+  a=Math.floor(Math.random()*10+1);
+  b=0;
+  for(i=0;i<10;i++)
+  {
+   q[i] == a? b=1:b;
+  }
+ }while(b==1)
+ q[q_no-1]=a;
+ return a;
+}
 
-
-
-
-switch(a){
- case 1:
-    ques[q_no-1]="what is my name?";
-    op=["Vinayak","Bruh","lul","tut"];
-    rndmize_op(op);
-    corct_op[q_no-1]="Vinayak";
+function question()
+{
+ q_no++;
+ a=rndmize_ques()
+ switch(a){
+  case 1:
+    ques[q_no-1]="Who is the PRESIDENT of India?";
+    op=["Ram Nath Kovind","Narendra Modi","Pranab Mukherjee","Rahul Gandhi"];
+    corct_op[q_no-1]="Ram Nath Kovind";
     break;
- case 2:
-    ques[q_no-1]="what is my sister name?";
-    op=["Varu","Bruh","lul","tut"];
-    rndmize_op(op);
-    corct_op[q_no-1]="Varu";
+  case 2:
+    ques[q_no-1]="How many states are there in India?";
+    op=["29","28","35","36"];
+    corct_op[q_no-1]="29";
     break;
-
- case 3:
-    ques[q_no-1]="what is my father name?";
-    op=["satya","Bruh","lul","tut"];
-    rndmize_op(op);
-    corct_op[q_no-1]="satya";
+  case 3:
+    ques[q_no-1]="World War 2 started in?";
+    op=["Sep 1939","Jun 1940","Jul 1939","Apr 1945"];
+    corct_op[q_no-1]="Sep 1939";
     break;
-
- case 4:
-    ques[q_no-1]="what is my mother name?";
-    op=["archu","Bruh","lul","tut"];
-    rndmize_op(op);
-    corct_op[q_no-1]="archu";
+  case 4:
+    ques[q_no-1]="International Labour day is celebrated every year on which date?";
+    op=["May 1","May 2","May 5","Jun 22"];
+    corct_op[q_no-1]="May 1";
     break;
-
- case 5:
-    ques[q_no-1]="what is my nick name?";
-    op=["Vinu","Bruh","lul","tut"];
-    rndmize_op(op);
-    corct_op[q_no-1]="Vinu";
+  case 5:
+    ques[q_no-1]="When did Berlin wall fall?";
+    op=["9 Nov 1989","8 Dec 1983","13 Aug 1961","5 Apr 1989"]
+    corct_op[q_no-1]="9 Nov 1989";   
     break;
-
- case 6:
-    ques[q_no-1]="what is my roll no?";
-    op=["20na30032","Bruh","lul","tut"];
-    rndmize_op(op);
-    corct_op[q_no-1]="20na30032";
+  case 6:
+    ques[q_no-1]="Who is regarded as the father of computer science?";
+    op=["Alan Turing","Charles Babbage","ohn McCarthy","Ada Lovelace"];
+    corct_op[q_no-1]="Alan Turing";
     break;
-
- case 7:
-    ques[q_no-1]="what is my clg?";
-    op=["kgp","Bruh","lul","tut"];
-    rndmize_op(op);
-    corct_op[q_no-1]="kgp";
+  case 7:
+    ques[q_no-1]="The oldest known printed text is?";
+    op=["The Diamond Sutra","The Rigveda","The Bible","The Samveda"];
+    corct_op[q_no-1]="The Diamond Sutra";
     break;
-
- case 8:
-    ques[q_no-1]="what is my age?";
-    op=["19","Bruh","lul","tut"];
-    rndmize_op(op);
-    corct_op[q_no-1]="19";
+  case 8:
+    ques[q_no-1]="Partition of Bengal happened in?";
+    op=["1905","1931","1857","1920"];
+    corct_op[q_no-1]="1905";
     break;
-
- case 9:
-    ques[q_no-1]="what is my height?"
-    op=["178","Bruh","lul","tut"];
-    rndmize_op(op);
-    corct_op[q_no-1]="178";
+  case 9:
+    ques[q_no-1]="Legendary Bhagat Singh was a member OF HSRA(Hindustan Socialist Republican Association) along with?"
+    op=["Chandra Shekhar Azad","Mahatma Gandhi","Subhash Chandra Bose","Lala Lajpat Rai"];
+    corct_op[q_no-1]="Chandra Shekhar Azad";
     break;
-
- case 10:
-    ques[q_no-1]="what is my fav food?";
-    op=["manchurian","Bruh","lul","tut"];
-    rndmize_op(op);
-    corct_op[q_no-1]="manchurian";
+  case 10:
+    ques[q_no-1]="Who is regarded as the first Computer Programmer ?";
+    op=["Ada Lovelace","Charles Babbage","Barbara Liskov","Larry Page"];
+    corct_op[q_no-1]="Ada Lovelace";
     break;
-}	
+ }	
+ rndmize_op(op);
 }
 
 function end_quiz()
 {
-alert("final score = "+ score);
-document.getElementById("op1").style.visibility = "hidden";
-document.getElementById("op2").style.visibility = "hidden";
-document.getElementById("op3").style.visibility = "hidden";
-document.getElementById("op4").style.visibility = "hidden";
-document.getElementById("btn1").style.visibility = "hidden";
-document.getElementById("ques").style.visibility = "hidden";
-document.getElementById("time").innerHMTL = "";
-document.getElementById("score").innerHTML ="final score:" + score;
-document.getElementById("btn2").style.visibility = "visible";
-document.getElementById("btn3").style.visibility = "visible";
+ alert("Final Score = "+ score);
+ document.getElementById("op1").style.visibility = "hidden";
+ document.getElementById("op2").style.visibility = "hidden";
+ document.getElementById("op3").style.visibility = "hidden";
+ document.getElementById("op4").style.visibility = "hidden";
+ document.getElementById("btn1").style.visibility = "hidden";
+ document.getElementById("ques").style.visibility = "hidden";
+ document.getElementById("time").innerHTML = "";
+ document.getElementById("score").innerHTML ="Final Score:" + score;
+ document.getElementById("btn2").style.visibility = "visible";
+ document.getElementById("btn3").style.visibility = "visible";
 }
 
 function check()
 {
-clearInterval(t);
-time_tkn[q_no-1] = 30 - time;
-if(time_tkn[q_no-1] == 0){time_tkn[q_no-1] = 1;}
-if(sel_op[q_no-1] == corct_op[q_no-1]) {alert("correct");score++}
-else {alert("wrong");}
-
-if(q_no>=10)
-{
-end_quiz();
+ clearInterval(t);
+ time_tkn[q_no-1] = 30 - time;
+ if(time_tkn[q_no-1] == 0) { time_tkn[q_no-1] = 1;} 
+ if(sel_op[q_no-1] == corct_op[q_no-1]) 
+ {
+  alert("Correct!! :) ");
+  score++;
+ }
+ else 
+ {
+  alert("Wrong!! :( Correct Answer = " + corct_op[q_no-1]);
+ }
+ q_no>=10 ? end_quiz() : ask_ques() ;
 }
-else{ask_ques();}
+
+function clock()
+{
+ time--;
+ document.getElementById("time").innerHTML=" Time Left: " + time + " sec";
+ if(time < 0)
+ {
+  clearInterval(t);
+  time_tkn[q_no-1]=30;
+  alert("Time Up!!");
+  ask_ques();
+ }
 }
 
 function ask_ques()
 {
-
-time=30;
-document.getElementById("time").innerHTML=" Time Left: " + time + " sec";
-t=setInterval(clock,1000);
-
-function clock()
-{
-time--;
-document.getElementById("time").innerHTML=" Time Left: " + time + " sec";
-if(time == 0){clearInterval(t);alert("time up");time_tkn[q_no-1]=30;ask_ques();}
-}
-question(a);
-document.getElementById("score").innerHTML = "score : "+score;
-document.getElementById("score").style.visibility = "visible";
-document.getElementById("ques").style.visibility = "visible";
-
-
-
-
-
-document.getElementById("btn1").style.visibility = "hidden";
-document.getElementById("ques").innerHTML = "Question " + q_no + ": " + ques[q_no-1];
-document.getElementById("op1").style.visibility = "visible";
-document.getElementById("op2").style.visibility = "visible";
-document.getElementById("op3").style.visibility = "visible";
-document.getElementById("op4").style.visibility = "visible";
-document.getElementById("op1").innerHTML = "1."+ op[0];
-document.getElementById("op2").innerHTML = "2."+ op[1];
-document.getElementById("op3").innerHTML = "3."+ op[2];
-document.getElementById("op4").innerHTML = "4."+ op[3];
-	
+ document.getElementById("time").style.visibility = "visible";
+ time=30;
+ question();
+ clock();
+ t=setInterval(clock,1000);
+ document.getElementById("score").innerHTML = "Score : "+score;
+ document.getElementById("score").style.visibility = "visible";
+ document.getElementById("ques").style.visibility = "visible";
+ document.getElementById("btn1").style.visibility = "hidden";
+ document.getElementById("ques").innerHTML = "Question " + q_no + ": " + ques[q_no-1];
+ document.getElementById("op1").style.visibility = "visible";
+ document.getElementById("op2").style.visibility = "visible";
+ document.getElementById("op3").style.visibility = "visible";
+ document.getElementById("op4").style.visibility = "visible";
+ document.getElementById("op1").innerHTML = "1."+ op[0];
+ document.getElementById("op2").innerHTML = "2."+ op[1];
+ document.getElementById("op3").innerHTML = "3."+ op[2];
+ document.getElementById("op4").innerHTML = "4."+ op[3];
 }
 
-
-
-
-
-
-</script>
-</body>
+  </script>
+ </body>
 </html>
